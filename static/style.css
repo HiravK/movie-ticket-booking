@@ -1,0 +1,237 @@
+*filepath: /movie_ticket_booking/movie_ticket_booking/static/style.css*
+
+* ==========================
+   GLOBAL RESET & BASE STYLES
+========================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #121212;
+  color: #fff;
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ==========================
+   HEADER
+========================== */
+header {
+  text-align: center;
+  padding: 2rem;
+  background: #1f1f1f;
+  border-bottom: 2px solid #e50914;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  color: #e50914;
+}
+
+header p {
+  font-size: 1.2rem;
+  color: #ccc;
+}
+
+/* ==========================
+   FOOTER
+========================== */
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  background: #1f1f1f;
+  margin-top: 2rem;
+  border-top: 2px solid #e50914;
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+/* ==========================
+   MOVIE LIST PAGE
+========================== */
+.movie-list {
+  padding: 2rem;
+}
+
+.movie-list h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  color: #e50914;
+}
+
+.movies {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.movie-card {
+  background: #1f1f1f;
+  border-radius: 12px;
+  overflow: hidden;
+  text-align: center;
+  padding: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movie-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0px 4px 20px rgba(229, 9, 20, 0.4);
+}
+
+.movie-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.movie-card h3 {
+  margin: 0.5rem 0;
+  font-size: 1.5rem;
+}
+
+.movie-card p {
+  font-size: 1rem;
+  color: #aaa;
+}
+
+.book-btn {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  background: #e50914;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.book-btn:hover {
+  background: #b20710;
+}
+
+/* ==========================
+   BOOKING PAGE
+========================== */
+.booking-container {
+  max-width: 700px;
+  margin: 2rem auto;
+  text-align: center;
+  padding: 1rem;
+}
+
+.screen {
+  background: #e50914;
+  color: white;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.seat-map {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 2rem;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.seat {
+  width: 40px;
+  height: 40px;
+  background: #444;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.seat.selected {
+  background: #00c853;
+}
+
+.seat.booked {
+  background: #b20710;
+  cursor: not-allowed;
+}
+
+.seat:hover:not(.booked) {
+  background: #666;
+}
+
+.summary {
+  background: #1f1f1f;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  display: inline-block;
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+.summary p {
+  margin: 0.5rem 0;
+}
+
+.summary button {
+  margin-top: 1rem;
+  padding: 0.7rem 1.5rem;
+  background: #e50914;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.summary button:hover {
+  background: #b20710;
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+@media (max-width: 768px) {
+  .seat {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+  }
+
+  .movies {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+
+  .movie-card img {
+    height: 150px;
+  }
+}

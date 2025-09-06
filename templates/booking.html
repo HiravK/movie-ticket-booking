@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Seats</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <h1 id="movie-title">Movie Name</h1>
+    <p>Select your seats below</p>
+  </header>
+
+  <main class="booking-container">
+    <div class="screen">SCREEN</div>
+    <div class="seat-map" id="seat-map">
+    </div>
+
+    <div class="summary">
+      <p>Seats Selected: <span id="count">0</span></p>
+      <p>Total Price: ₹<span id="total">0</span></p>
+      <button id="book-btn">Book Now</button>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Movie Booking System | All rights reserved</p>
+  </footer>
+
+  <script>
+    const movieId = 1; // You can set dynamically from Flask if needed
+    const seatMapContainer = document.getElementById("seat-map");
+    const countEl = document.getElementById("count");
+    const totalEl = document.getElementById("total");
+    const bookBtn = document.getElementById("book-btn");
+    const seatPrice = 150; // Price per seat
+    let selectedSeats = [];
+
+    async function loadSeats() {
+      const res = await fetch(`/get-seats/${movieId}`);
+      const seats = await res.json();
+      renderSeats(seats);
+    }
+
+    function renderSeats(seats) {
+      seatMapContainer.innerHTML = "";
+      const rows = 4;
+      const seatsPerRow = 5;
+      for (let r = 0; r < rows; r++) {
+        const rowDiv = document.createElement("div");
+        rowDiv.classList.add("row");
+        for (let s = 0; s < seatsPerRow; s++) {
+          const seatIndex = r * seatsPerRow + s;
+          const seatData = seats[seatIndex];
+          const seatDiv = document.createElement("div");
+          seatDiv.classList.add("seat");
+          seatDiv.dataset.seat = seatData[0];
+          if (seatData[1] === "booked") seatDiv.classList.add("booked");
+
+          seatDiv.addEventListener("click", () => toggleSeat(seatDiv));
+          rowDiv.appendChild(seatDiv);
+        }
+        seatMapContainer.appendChild(rowDiv);
+      }
+    }
+
+    function toggleSeat(seatDiv) {
+      if (seatDiv.classList.contains("booked")) return;
+      seatDiv.classList.toggle("selected");
+      const seatNum = seatDiv.dataset.seat;
+      if (seatDiv.classList.contains("selected")) {
+        selectedSeats.push(seatNum);
+      } else {
+        selectedSeats = selectedSeats.filter(s => s !== seatNum);
+      }
+      countEl.textContent = selectedSeats.length;
+      totalEl.textContent = selectedSeats.length * seatPrice;
+    }
+
+    bookBtn.addEventListener("click", async () => {
+      for (const seat of selectedSeats) {
+        const res = await fetch("/book", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ movie_id: movieId, seat_number: seat, username: "Hirav" })
+        });
+        const data = await res.json();
+        if (!data.success) alert(`Failed to book ${seat}: ${data.message}`);
+      }
+      selectedSeats = [];
+      countEl.textContent = 0;
+      totalEl.textContent = 0;
+      loadSeats(); 
+    });
+
+    loadSeats();
+  </script>
+</body>
+</html>

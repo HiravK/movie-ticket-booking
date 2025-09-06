@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Movie Booking System</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <header>
+    <h1>Movie Booking System</h1>
+    <p>Select a movie and book your seats</p>
+  </header>
+
+  <main class="movie-list">
+    <h2>Available Movies</h2>
+    <div class="movies" id="movies-container">
+      <!-- Movie cards will be loaded dynamically -->
+    </div>
+  </main>
+
+  <div id="booking-section" style="display:none;">
+    <main class="booking-container">
+      <h2 id="movie-title">Movie Name</h2>
+      <div class="screen">SCREEN</div>
+      <div class="seat-map" id="seat-map"></div>
+
+      <div class="summary">
+        <p>Seats Selected: <span id="count">0</span></p>
+        <p>Total Price: ₹<span id="total">0</span></p>
+        <button id="book-btn">Book Now</button>
+      </div>
+    </main>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Movie Booking System | All rights reserved</p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
